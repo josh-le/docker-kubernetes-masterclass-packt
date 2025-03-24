@@ -1,0 +1,7 @@
+# # leave out hello dir
+# hello/ 
+
+# # leave out anything ending in 1 in any dir
+*/*1
+
+# not sure why he did two stars for a dir. bot
