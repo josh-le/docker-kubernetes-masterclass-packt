@@ -287,5 +287,19 @@ run stage:
 ## optimizing docker images - base images - lab
 working in `optimizing-images/`
 
+we are installing express as a runtime dependency and typescript and jest as development dependencies
+
+pretty simple, he showed the slim and alpine versions of the node base image that are smaller
+## optimizing docker images - instruction order - lab
+rather than copying the source code over after building the depenedencies, we copy everything over at the same time.
+
+this means it will not be able to cache the dependency build layer because it will change every time we change the source code, causing longer build times
+## optimizing docker images - managing dependencies - lab
+install all the dependencies necessary for building in the build phase,
+
+in the run phase, install only the dependencies necessary for running with RUN npm ci --only-production
+## optimizing our typescript dockerfile
+created a new stage called deps, where we use the same base image as build, same WORKDIR and same COPY package*, but we `RUN npm ci --only-production` so that we only have runtime dependencies
+
 
 
