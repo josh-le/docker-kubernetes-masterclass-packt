@@ -1,0 +1,12 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY package* .
+
+# this would be in the run phase, after we did a regular RUN npm ci in the build phase
+RUN npm ci --only-production
+
+COPY index.js index.js
+
+CMD ["node", "index.js"]
