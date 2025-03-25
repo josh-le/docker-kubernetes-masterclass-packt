@@ -320,3 +320,24 @@ this doesn't hot reload, we have to run npm run build again which makes sense
 build stage with node:alpine where we copy over package*, run npm ci to install deps, copy over src/, public/ and tsconfig.json, then run npm run build script
 
 run stage with nginx, we just copy from build stage /app/build /usr/share/nginx/html
+
+and that's literally it you don't need a CMD or ENTRYPOINT in nginx container
+# ch 10. volumes and data persistence
+## understanding the need for volumes - lab
+starting by just running an nginx container for persistence through this lesson
+
+ok basically volumes are a place to keep data when you need it in multiple containers
+## introduction to docker volumes
+persist data beyond containers lifecycle and between containers
+
+__type of volumes__:
+- __bind mounts__: directly link host system files or directories to the container
+- __named volumes__: created via docker cli and reusable across containers
+## working with bind mounts - lab
+alright we are making a Dockerfile.dev in the react app project where instead of `npm run build` and then copying over to a run stage, we just do `npm start`
+
+although npm start supports hotreloading, the files we edit on host aren't going into the container, so it is not updated.
+
+to fix this, we will mount __bind mounts__ to the container, at container run time:
+`docker run --rm -d -p 3000:3000 -v ./public:/app -v ./src:/app react-app:dev`
+p.s. make sure to do ./<dir> to add volumes from host otherwise it doesn't work
