@@ -300,6 +300,23 @@ install all the dependencies necessary for building in the build phase,
 in the run phase, install only the dependencies necessary for running with RUN npm ci --only-production
 ## optimizing our typescript dockerfile
 created a new stage called deps, where we use the same base image as build, same WORKDIR and same COPY package*, but we `RUN npm ci --only-production` so that we only have runtime dependencies
+# ch 9. project - containerize a react app
+write a react app, build with multistage docker file, have docker file serve static files through nginx server
+## setting up react app
+set up a react app with create-react-app with typescript template, create dir containerize-react-app
+`npx create-react-app --template typescript containerize-react-app`
 
+right from there, you can test it with `npm start`, which spins up a development server
+## building and serving the react app
+to create an optimized, production build we do
+`npm run build`
 
+this will create a build folder, which we can server with
+`npx http-server@14.1.1 build`
 
+note:
+this doesn't hot reload, we have to run npm run build again which makes sense
+## creating a dockerfile for our react app
+build stage with node:alpine where we copy over package*, run npm ci to install deps, copy over src/, public/ and tsconfig.json, then run npm run build script
+
+run stage with nginx, we just copy from build stage /app/build /usr/share/nginx/html
