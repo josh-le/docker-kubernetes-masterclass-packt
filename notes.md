@@ -103,6 +103,16 @@ then we install vim with `apt update` and `apt install vim`
 now we can edit the file at `/usr/share/nginx/html/index.html`
 
 and then if we look at it with broswer its different woohoo!!
+## side project: adding jetbrains font to page
+found the font on fonts.google.com - i think this can also be imported to react apps
+
+just copied the a few lines into the <head> of our html file
+
+then just changed the current html that was there referencing font-family to reference jetbrains:
+```html
+body { width: 35em; margin: 0 auto;
+font-family: "JetBrains Mono", monospace; }
+```
 # ch 6. introduction to docker images
 ## what are docker images
 docker images are the _dna of our containers_. they should contain everything needed to run an application
