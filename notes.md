@@ -375,4 +375,30 @@ show details about a volume:
 remove a volume:
 `docker volume rm <volume name>`
 # ch 11. advanced docker topics - resource limits, restart policies, networking
+## setting cpu limits for containers - lab
+`docker run -d --rm --name cpu_decimals --cpus=0.5 busybox sh -c "while true; do :; done`
+this runs a shell script that consumes CPU, it will not exceed more than 50% of cpu power tho
+
+`docker run -d --rm --name cpu_shares_low --cpu-shares=512 --cpuset-cpus=0 busybox sh -c "while true; do :; done`
+`docker run -d --rm --name cpu_shares_high --cpu-shares=2048 --cpuset-cpus=0 busybox sh -c "while true; do :; done`
+this will spin up two containers, cpuset chooses the first cpu (?) and the corresponding cpu shares dedicate 80% of the cpu to the high one and 20% to the low one. these are only enforced if it is near the limit
+
+`docker run -d --rm --name cpu_quota--cpu-period=100000 --cpu-quota=75000 busybox sh -c "while true; do :; done`
+defines the period and quota in ms, not used much, i have no idea why you would use this
+## setting memory limits for containers - lab
+`docker run -d --rm --name mongodb --memory="20m" mongodb/mongodb-community-server:7.0-ubuntu2204`
+sets a memory limit of 20 mebibytes
+
+`docker run -d --rm --name mongodb --memory-reservation="80m" --memory="100m" mongodb/mongodb-community-server:7.0-ubuntu2204`
+reserves 80mib of memory and sets a limit off 100mib
+
+he says a more realistic scenario is setting the reservation slightly higher than expected memory usage, and limit well over so it doesnt accidentally kill itself
+
+`docker run -d --rm --name mongodb --memory="100m" --memory-swap="1g" mongodb/mongodb-community-server:7.0-ubuntu2204`
+this would set the memory limit to be 100m and the swap to be 900m
+
+if the container exceeds the limit it wont die it will swap
+## working with restart policies - lab
+
+
 
