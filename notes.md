@@ -399,6 +399,61 @@ this would set the memory limit to be 100m and the swap to be 900m
 
 if the container exceeds the limit it wont die it will swap
 ## working with restart policies - lab
+if you want a container to automatically restart if it stops or crashes
 
+`docker run -d --name no_restart busybox sh -c "sleep 3; exit 1"`
+this starts a container for three seconds then it exits with a nonzero exit code
 
+`docker run -d --name restart_fail --restart on-failure busybox sh -c "sleep 3; exit 1"`
+this will restart the container whenever it exits with a nonzero exit code
 
+`docker run -d --name restart_fail --restart on-failure:3 busybox sh -c "sleep 3; exit 1"`
+the container will restart on the first three fails and stay dead on the fourth fail
+
+`docker run -d --name restart_always --restart always busybox sh -c "sleep 3; exit 1"`
+this container will always restart whenever it stops, no matter the exit code
+    (unless you stop it manually)
+if you restart the docker daemon after it is stopped, it will restart though
+
+`docker run -d --name restart_us --restart unless-stopped busybox sh -c "sleep 3; exit 1"`
+this one doesn't restart when you restart the docker daemon if it was manually stopped
+## networking in docker
+everything we need to isolate and/or connect containers
+
+each container gets its own IP, allowing it to communicate with containers on the same network
+
+however, it is best practice to use the container names, because IP addresses could change on restart
+
+containers in bridge network can be made reachable from host network by exposing ports
+
+__network drivers:__
+- __bridge (default)__: isolated private network for containers to communicate with one another
+- __host__: removes network isolation between container and host
+- __none:__ disables all networking for a container
+- __overlay:__ used for multihost networking, allowing containers on different hosts to communicate directly
+## using the default bridge network - lab
+`docker network ls`
+inspect docker networks 
+
+in this example he created an nginx container, and used `inspect` to get the ip, then created an ubuntu container and was able to curl that ip address from the other container because _they were both on the bridge network_
+## working with user-defined networks
+`docker network create app-net`
+creates a new network, whose driver is bridge
+    does this mean they are connected to the bridge network?? or is it a separate network?
+
+`docker network connect <network name> <container name>`
+connects a container to a network
+
+if you do not specify a network on running the container, it will automatically be connected to the bridge, and connecting it to another network will give it a new IP on that network, and maintain the connection to the bridge network
+
+on the user created network, the DNS is enabled so you can use container names in place of IP addresses
+
+`docker run -it --network app-net alpine sh`
+this creates an alpine container on the user network, and we can `curl webserver` to get the nginx container because DNS is working here
+### exposing ports on user-defined networks
+just use the `-p` flag when starting the container on the network and the port will be mapped to the local port
+### side note: installing packages on alpine:
+`apk add curl`
+## using the host network - lab
+apparently the host network is not really supported on mac or windows, only linux
+# ch 12. project - build a key-value REST api
