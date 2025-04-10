@@ -457,3 +457,11 @@ just use the `-p` flag when starting the container on the network and the port w
 ## using the host network - lab
 apparently the host network is not really supported on mac or windows, only linux
 # ch 12. project - build a key-value REST api
+using express and mongodb to make a key value store rest api
+## running a mongodb server
+just ran the mongodb-community-server image
+
+use the database with
+`docker exec -it mongodb mongosh`
+## adding root credentials to mongodb
+doing this with shell scripts
