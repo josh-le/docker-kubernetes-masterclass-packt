@@ -457,6 +457,7 @@ just use the `-p` flag when starting the container on the network and the port w
 ## using the host network - lab
 apparently the host network is not really supported on mac or windows, only linux
 # ch 12. project - build a key-value REST api
+`~/programming/docker/packet-course/key-value-app`
 using express and mongodb to make a key value store rest api
 ## running a mongodb server
 just ran the mongodb-community-server image
@@ -465,3 +466,15 @@ use the database with
 `docker exec -it mongodb mongosh`
 ## adding root credentials to mongodb
 doing this with shell scripts
+## setting user credentials for k-v db
+a javascript file that we mount to the container when we start it that sets the creds
+
+adjusted a couple things in the shell script as well to make it work
+## defining ports, networks and volumes
+created a network and a volume, and added them to the bash script for starting the db
+
+now we run the container, and connect with another mongodb container to debug:
+`docker run --rm --name debush -it --network key-value-net mongodb/mongodb-community-server:7.0-ubuntu2204 mongosh mongodb://mongodb/key-value-db`
+that works to login. to be able to use the creds:
+`docker run --rm --name debush -it --network key-value-net mongodb/mongodb-community-server:7.0-ubuntu2204 mongosh mongodb://key-value-user:key-value-password@mongodb/key-value-db`
+
