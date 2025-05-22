@@ -6,11 +6,6 @@ source .env.db
 ROOT_USER="root-user"
 ROOT_PASSWORD="root-password"
 
-# key value creds
-KEY_VALUE_DB="key-value-db"
-KEY_VALUE_USER="key-value-user"
-KEY_VALUE_PASSWORD="key-value-password"
-
 # connectivity
 source .env.network
 LOCALHOST_PORT=27017

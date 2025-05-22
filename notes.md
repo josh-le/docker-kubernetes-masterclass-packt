@@ -495,3 +495,25 @@ create npm project and install express, mongoose, body-parser
 simple express app with a check health end point
 
 can't find the database right now, we will fix that by dockerizing the backend of the app and hooking it up to the same network that the db is running on next lecture.
+## dockerizing the express app
+making a developer dockerfile
+
+it's a node image, copies over package* and runs npm ci, then copies the rest over and runs npm start
+
+now we create the image with `docker build -t key-value-backend -f Dockerfile.dev .`
+
+now we can run the backend on our network with `docker run -d --name backend --network key-value-net -p 3000:3000 key-value-backend`
+
+now that the server script is actually correct, it works and you can see it connect in `docker logs backend`
+## creating scripts to initialize the backend container
+`start-backend.sh` script
+
+changed a bunch of things to env vars and we just build the image from the backend dir and run it
+## adding hot-reload with nodemon
+installed nodemon dependency
+
+make a npm dev script that runs `nodemon src/server.js`
+
+change docker file to be npm run dev
+
+added bind mount to docker run part of start-db script `-v ./backend/src:/app/src`
