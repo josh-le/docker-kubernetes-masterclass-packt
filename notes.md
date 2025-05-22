@@ -517,3 +517,4 @@ make a npm dev script that runs `nodemon src/server.js`
 change docker file to be npm run dev
 
 added bind mount to docker run part of start-db script `-v ./backend/src:/app/src`
+## defining api routes

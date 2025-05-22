@@ -1,11 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { keyValueRouter } = require('./routes/store');
+const { healthRouter } = require('./routes/health');
 
 const port = process.env.PORT;
 
 const app = express();
 app.use(bodyParser.json());
+app.use('/health', healthRouter);
+app.use('/store', keyValueRouter);
+
 
 console.log("Connecting to DB");
 mongoose.connect(`mongodb://${process.env.MONGODB_HOST}/${process.env.KEY_VALUE_DB}`, {
@@ -22,7 +27,3 @@ mongoose.connect(`mongodb://${process.env.MONGODB_HOST}/${process.env.KEY_VALUE_
 	console.log('Connected to DB')
     })
     .catch(err => console.error(err));
-
-app.get('/health', (req, res) => {
-    res.status(200).send('up');
-});
