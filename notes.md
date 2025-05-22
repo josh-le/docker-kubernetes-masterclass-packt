@@ -477,4 +477,21 @@ now we run the container, and connect with another mongodb container to debug:
 `docker run --rm --name debush -it --network key-value-net mongodb/mongodb-community-server:7.0-ubuntu2204 mongosh mongodb://mongodb/key-value-db`
 that works to login. to be able to use the creds:
 `docker run --rm --name debush -it --network key-value-net mongodb/mongodb-community-server:7.0-ubuntu2204 mongosh mongodb://key-value-user:key-value-password@mongodb/key-value-db`
+## enhancing the structure of utility scripts
+creating a new script `setup.sh`, `cleanup.sh`
 
+moving some of our variables for network and volume to .env files.
+
+on setup, check our volume is already created, if it is we say that, if not we create the volume. same with network.
+
+on cleanup we check for container, kill it, check for network and volume, delete them
+## setting up the express app
+starting up the database: run the `start-db.sh` script and then we can get a mongo shell by `docker run --rm --name mongosh -it --network key-value-net mongodb/mongodb-community-server:7.0-ubuntu2204 mongosh mongodb://key-value-user:key-value-password@mongodb/key-value-db`
+
+then, we can start setting up the backend in the `backend` dir
+
+create npm project and install express, mongoose, body-parser
+
+simple express app with a check health end point
+
+can't find the database right now, we will fix that by dockerizing the backend of the app and hooking it up to the same network that the db is running on next lecture.
