@@ -6,13 +6,12 @@ const app = express();
 app.use(bodyParser.json());
 
 console.log("Connecting to DB");
-mongoose.connect('mongodb://mondodb/key-value-db', {
+mongoose.connect('mongodb://mongodb/key-value-db', {
     auth: {
 	username: 'key-value-user',
 	password: 'key-value-password'
     },
-    connectionTimeoutMS: 500,
-
+    connectTimeoutMS: 500,
 })
     .then(() => {
 	app.listen(3000, () => {

@@ -2,10 +2,9 @@ source .env.db
 source .env.volume
 source .env.network
 
-
 if [ "$(docker ps -aq -f name=$DB_CONTAINER_NAME)" ]; then
     echo "Removing container $DB_CONTAINER_NAME"
-    docker kill $DB_CONTAINER_NAMER
+    docker kill $DB_CONTAINER_NAME
 else
     echo "A container with the name $DB_CONTAINER_NAME does not exist. Skipping container deletion."
 fi
