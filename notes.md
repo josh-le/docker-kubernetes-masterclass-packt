@@ -523,5 +523,6 @@ added routes in seperate files using express Routers
 learning a pretty good amount about routing and express, all in the `store.js` file
 
 handling POST request to create key and GET request to get value from key
-
+## updating and deleting key-value pairs
+same thing, just implementing the logic in the PUT and DELETE methods in store.js
 
