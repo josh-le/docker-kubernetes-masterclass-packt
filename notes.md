@@ -518,3 +518,10 @@ change docker file to be npm run dev
 
 added bind mount to docker run part of start-db script `-v ./backend/src:/app/src`
 ## defining api routes
+added routes in seperate files using express Routers
+## creating and retrieving key-value pairs 
+learning a pretty good amount about routing and express, all in the `store.js` file
+
+handling POST request to create key and GET request to get value from key
+
+
