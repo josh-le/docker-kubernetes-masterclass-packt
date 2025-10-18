@@ -525,4 +525,6 @@ learning a pretty good amount about routing and express, all in the `store.js` f
 handling POST request to create key and GET request to get value from key
 ## updating and deleting key-value pairs
 same thing, just implementing the logic in the PUT and DELETE methods in store.js
-
+## testing the app and final cleanup
+not much, just stopping containers and running cleanup script
+# ch 13. docker compose
