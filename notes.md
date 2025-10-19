@@ -542,3 +542,26 @@ services:
 `docker compose down` undoes everything :)
 ## lab: working with bind mounts
 here we just defined a bind mount volume on the db service in the docker compose file
+## lab: managing volumes and networks in docker compose
+created a volume with 'volumes' in the compose file and a network with 'networks' in the compose file and passed them into the db service for long term storage and a network that we set rather than the default one this created
+## lab: adding a backend service to the docker compose file
+just added a backend service that builds our backend with the dockerfile that is in the folder rather than referring to an image
+
+now when we run it, if we want to build with the dockerfile, we do `docker compose up --build`
+    what happens if we don't --build?
+## lab: handling service dependencies in docker compose
+we made the `backend` service `depends_on` the `db` service, so the db is set up first in the composition and if it fails that backend doesn't build
+## lab: hot reloading and file watching
+on a service there is a `develop.watch` property where that you can set for hotreloading:
+```yaml
+develop:
+    watch:
+    - action: sync
+        path: ./backend/src
+        target: /app/src
+        ignore:
+        - node_modules/
+```
+__IMPORTANT__: when you do this, you have to run the `docker compose` command with the `--watch` flag
+
+he says some people just do a bind mount of the folder to /app/src in the container but this way works best with nodemon in his experience
