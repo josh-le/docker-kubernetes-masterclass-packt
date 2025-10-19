@@ -18,3 +18,4 @@ COPY --from=build /app/dist dist
 ENV PORT=3000
 # node is set as the ENTRYPOINT of the distroless image
 CMD ["dist/index.js"]
+

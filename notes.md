@@ -528,3 +528,17 @@ same thing, just implementing the logic in the PUT and DELETE methods in store.j
 ## testing the app and final cleanup
 not much, just stopping containers and running cleanup script
 # ch 13. docker compose
+## running mongodb with `docker compose`
+just defined the db as a service (i think `db` is the name of the service?) and defined the image and ports
+```yaml
+services:
+  db:
+    image: mongodb/mongodb-community-server:7.0-ubuntu2204
+    ports:
+      - 27017:27017
+```
+`docker compose up` sets up a default network for the services if one is not defined and spins everything up
+
+`docker compose down` undoes everything :)
+## lab: working with bind mounts
+here we just defined a bind mount volume on the db service in the docker compose file
