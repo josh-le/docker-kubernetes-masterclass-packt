@@ -1,0 +1,16 @@
+name: notebooks-backend
+
+services:
+  notebooks:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:80
+    environment:
+      - PORT=80
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src

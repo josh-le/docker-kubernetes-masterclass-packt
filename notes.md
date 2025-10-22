@@ -565,3 +565,18 @@ develop:
 __IMPORTANT__: when you do this, you have to run the `docker compose` command with the `--watch` flag
 
 he says some people just do a bind mount of the folder to /app/src in the container but this way works best with nodemon in his experience
+## lab: using docker compose cli
+it seems like when you are in a compose project, you can pretty much replace `docker` with `docker compose` and run the same command but the results are specific to the project
+
+`docker compose ps` in the compose project 
+`docker compose logs backend` to inspect the logs on the backend service
+`docker compose stop backend` stops just the backend container (same works with start)
+`docker compose stop` stops all the containers
+`docker compose down -v` takes down the volumes as well
+`docker compose up db` spins up just the db service
+
+as always use `--help` to learn about commands
+# ch. 14 project - code and deploy a notes app with docker compose
+so far basic stuff:
+    - setting up npm projects
+    - set up super simple server with docker compose
