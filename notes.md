@@ -580,3 +580,10 @@ as always use `--help` to learn about commands
 so far basic stuff:
     - setting up npm projects
     - set up super simple server with docker compose
+
+doing interpolation in docker compose with a `.env` file in the directory of the compose file
+```yaml
+${ENV_VAR}
+```
+## configuring docker compose for notebooks services
+wow i actually had to debug this for like 3 hours but `db.getSiblingDb` is deprecated and you use mongo db's now by just `use(db_name)`
